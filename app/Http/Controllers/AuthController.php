@@ -37,7 +37,7 @@ class AuthController extends Controller
 
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             $request->session()->regenerate();
-            return response()->json(['message' => 'Login successful'], 200);
+            return redirect()->route('page.home');
         }
 
         return response()->json(['message' => 'Invalid credentials'], 401);
@@ -51,5 +51,23 @@ class AuthController extends Controller
         $request->session()->regenerateToken();
 
         return response()->json(['message' => 'Logged out successfully'], 200);
+    }
+
+    // Views
+
+    public function registerView()
+    {
+        if (Auth::check()) {
+            return redirect()->route('page.home'); // Replace 'default.page' with your default route name
+        }
+        return view('auth.signup');
+    }
+
+    public function loginView()
+    {
+        if (Auth::check()) {
+            return redirect()->route('page.home'); // Replace 'default.page' with your default route name
+        }
+        return view('auth.signin');
     }
 }

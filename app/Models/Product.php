@@ -9,7 +9,7 @@ class Product extends Model
     protected $fillable = [
         'model',
         'price',
-        'color_id',
+        'description'
     ];
 
     public function color()
